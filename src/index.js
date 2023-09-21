@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const dotenv = require('dotenv').config();
 const handleEvents = require('./utils/eventhandler');
+const logger = require('./utils/logger');
 
 const client = new Discord.Client({
     intents: [32767]
@@ -8,11 +9,11 @@ const client = new Discord.Client({
 
 client.on('ready', async(client) => {
     client.user.setActivity({
-        name: `github.com/StylarBot/bot`,
+        name: `https://www.github.com/StylarBot/bot`,
         type: Discord.ActivityType.Custom
     });
 
-    console.log(`${client.user.tag} logged in`);
+    logger(`${client.user.tag} logged in.`)
 });
 
 client.login(process.env.TOKEN).then(() => {
