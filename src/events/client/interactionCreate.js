@@ -15,6 +15,9 @@ module.exports = {
             const command = client.commands.get(interaction.commandName);
             if(!command) return reply(interaction, `That is not a valid command.`, '🚫');
 
+            if(!interaction.guild.members.me.permissions.has(command.clientPermission || ""))
+            return reply(interaction, `I do not have the \`${command.clientPermission || ""}\` permission.`, `🚫`);
+
             try {
                 await command.execute(interaction, client);
             } catch (err) {
