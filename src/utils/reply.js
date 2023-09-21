@@ -1,9 +1,21 @@
-module.exports = async function reply(interaction, message, emoji, ephemeral) {
+module.exports = async function reply(interaction, message, emoji, ephemeral, actionrow) {
     if(!emoji) emoji === '✅';
     if(!ephemeral) ephemeral === false;
 
-    return interaction.reply({
-        content: `\`\`\`${emoji} ${message}\`\`\``,
-        ephemeral: ephemeral
-    });
+    if(actionrow) {
+        const msg = await interaction.reply({
+            content: `\`\`\`${emoji || "✅"} ${message}\`\`\``,
+            ephemeral: ephemeral,
+            components: [actionrow]
+        });
+
+        return msg;
+    } else {
+        const msg = await interaction.reply({
+            content: `\`\`\`${emoji || "✅"} ${message}\`\`\``,
+            ephemeral: ephemeral
+        });
+
+        return msg;
+    }
 }
