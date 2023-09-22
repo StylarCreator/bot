@@ -2,6 +2,7 @@ require('dotenv').config();
 const Discord = require('discord.js');
 const handleEvents = require('./eventhandler');
 const handleCmds = require('./commandhandler');
+const handleMongo = require('./mongohandler');
 
 class StylarClient {
     async init({
@@ -16,6 +17,7 @@ class StylarClient {
         client.login(process.env.TOKEN).then(() => {
             handleEvents(client);
             handleCmds(client);
+            handleMongo(process.env.MONGO);
         });
     }
 }
