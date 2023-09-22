@@ -1,7 +1,7 @@
 const { ChatInputCommandInteraction, Client, SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 
 module.exports = {
-    clientPermission: ['Administrator'],
+    clientPermissions: ['Administrator'],
     data: new SlashCommandBuilder()
     .setName('test')
     .setDescription('Test command')

@@ -11,7 +11,7 @@ module.exports = {
 
     async execute(client) {
         client.user.setActivity({
-            name: `github.com/StylarBot/bot`,
+            name: `https://github.com/StylarBot/bot`,
             type: ActivityType.Custom
         });
         

@@ -9,7 +9,7 @@ const {
 } = require('discord.js');
 
 module.exports = {
-    clientPermission: ['ManageMessages'],
+    clientPermissions: ['ManageMessages'],
     data: new SlashCommandBuilder()
     .setName('purge')
     .setDescription('Remove a certain amount of messages from a channel!')
