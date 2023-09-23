@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, ChatInputCommandInteraction, PermissionFlagsBits, ChannelType } = require('discord.js');
+const { SlashCommandBuilder, ChatInputCommandInteraction, PermissionFlagsBits, ChannelType, ButtonBuilder, ActionRowBuilder, ButtonStyle } = require('discord.js');
 const reply = require('../../utils/reply');
 
 module.exports = {
@@ -21,17 +21,30 @@ module.exports = {
     async execute(interaction) {
         const channel = interaction.options.getChannel('channel') || interaction.channel;
 
+        const button = new ButtonBuilder()
+        .setCustomId('delete')
+        .setStyle(ButtonStyle.Primary)
+        .setLabel('🗑️')
+
+        const row = new ActionRowBuilder()
+        .addComponents(button)
+
         if(channel.type === ChannelType.GuildText) {
             await channel.clone().then(async (ch) => {
                 const msg = await ch.send({
-                    content: `\`\`\`${channel.name} has been cleared all of all of its messages.\`\`\``
+                    content: `\`\`\`${channel.name} has been cleared all of all of its messages.\`\`\``,
+                    components: [row]
                 });
 
                 await channel.delete();
 
-                setTimeout(() => {
-                    msg.delete();
-                }, 3000);
+                const collector = await msg.createMessageComponentCollector();
+
+                collector.on('collect', async(results) => {
+                    if(results.customId === 'delete') {
+                        await msg.delete();
+                    } else return;
+                });
             });
         } else return reply(interaction, `The channel you have selected is not a Guild text channel.`, `🚫`);
     }

@@ -14,6 +14,8 @@ module.exports = {
      */
 
     async execute(interaction, client) {
-        
+        interaction.reply({
+            content: `testing command works!`
+        });
     }
 }

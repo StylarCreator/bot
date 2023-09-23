@@ -8,8 +8,17 @@ class StylarClient {
     async init({
         token
     }) {
+        const { IntentsBitField } = Discord;
         const client = new Discord.Client({
-            intents: [32767]
+            intents: [
+                IntentsBitField.Flags.MessageContent,
+                IntentsBitField.Flags.GuildMembers,
+                IntentsBitField.Flags.GuildMessages,
+                IntentsBitField.Flags.GuildEmojisAndStickers,
+                IntentsBitField.Flags.GuildModeration,
+                IntentsBitField.Flags.GuildPresences,
+                IntentsBitField.Flags.Guilds,
+            ]
         });
 
         client.commands = new Discord.Collection();

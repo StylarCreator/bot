@@ -16,7 +16,7 @@ module.exports = {
             const command = client.commands.get(interaction.commandName);
             if(!command) return reply(interaction, `That is not a valid command.`, '🚫');
 
-            if(command.clientPermissions.length > 0) {
+            if(command.clientPermissions) {
                 command.clientPermissions.forEach((permission) => {
                     if(!interaction.guild.members.me.permissions.has(permission)) missingPermissions.push(permission);
                 });
@@ -28,7 +28,8 @@ module.exports = {
             try {
                 await command.execute(interaction, client);
             } catch (err) {
-                return reply(interaction, `${err}`, `🚫`);
+                reply(interaction, `${err}`, `🚫`, true);
+                console.log(err);
             }
         } else return;
     }
